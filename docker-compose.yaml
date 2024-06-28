@@ -1,0 +1,40 @@
+services:
+  mysqldb:
+    image: mysql
+    ports:
+      - 3306:3306
+    volumes:
+      - ./patient.sql:/docker-entrypoint-initdb.d/patient.sql
+    networks:
+      - medilabo-network
+    environment:
+      MYSQL_DATABASE: patient
+      MYSQL_USER: user1
+      MYSQL_PASSWORD: passer123
+      MYSQL_ROOT_PASSWORD: root
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -proot"]
+      timeout: 20s
+      retries: 5
+
+  patient-service:
+    build: ./ms-patient
+    restart: on-failure
+    ports:
+      - 8081:8081
+    networks:
+      - medilabo-network
+    environment:
+      MYSQL_HOST: mysqldb
+      MYSQL_USER: user1
+      MYSQL_PASSWORD: passer123
+      MYSQL_PORT: 3306
+    depends_on:
+      mysqldb:
+        condition: service_healthy
+
+    volumes:
+      - .m2:/root/.m2
+
+networks:
+  medilabo-network:
