@@ -20,6 +20,7 @@ public class PatientController {
     public String showPatientList(Model model) {
         log.info("display list patients");
         List<EntityModelPatient> patients = patientService.getListPatients();
+        log.info("{} patients retrieved", patients.size());
         model.addAttribute("patients", patients);
         return "index";
     }

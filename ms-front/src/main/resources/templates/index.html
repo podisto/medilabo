@@ -2,6 +2,34 @@
      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{_layout}" layout:fragment="content">
 
     <main class="container">
-        <h1>Hello world</h1>
+        <h1>Liste des patients</h1><br>
+        <a href="#" class="btn btn-primary">Nouveau Patient</a>
+        <br><br>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Prénom</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Date de naissance</th>
+                <th scope="col">Genre</th>
+                <th scope="col">Adresse</th>
+                <th scope="col">Numéro de téléphone</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="patient : ${patients}">
+                <td th:text="${patient.firstName}"></td>
+                <td th:text="${patient.lastName}"></td>
+                <td th:text="${patient.birthDate}"></td>
+                <td th:text="${patient.gender}"></td>
+                <td th:text="${patient.address}"></td>
+                <td th:text="${patient.phoneNumber}"></td>
+                <td>
+                    <a href="#" class="btn btn-secondary">Editer</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </main>
 </div>
