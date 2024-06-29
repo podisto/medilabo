@@ -27,7 +27,7 @@ services:
 
   patient-service:
     build: ./ms-patient
-    restart: on-failure
+    restart: always
     ports:
       - 8082:8082
     networks:
@@ -43,7 +43,7 @@ services:
 
   note-service:
     build: ./ms-note
-    restart: on-failure
+    restart: always
     ports:
       - 8083:8083
     networks:
