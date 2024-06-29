@@ -56,6 +56,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>note-service</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

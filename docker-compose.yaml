@@ -17,11 +17,19 @@ services:
       timeout: 20s
       retries: 5
 
+  mongodb:
+    image: mongo
+    restart: on-failure
+    ports:
+      - 27017:27017
+    networks:
+      - medilabo-network
+
   patient-service:
     build: ./ms-patient
     restart: on-failure
     ports:
-      - 8081:8081
+      - 8082:8082
     networks:
       - medilabo-network
     environment:
@@ -32,6 +40,16 @@ services:
     depends_on:
       mysqldb:
         condition: service_healthy
+
+  note-service:
+    build: ./ms-note
+    restart: on-failure
+    ports:
+      - 8083:8083
+    networks:
+      - medilabo-network
+    depends_on:
+      - mongodb
 
     volumes:
       - .m2:/root/.m2
