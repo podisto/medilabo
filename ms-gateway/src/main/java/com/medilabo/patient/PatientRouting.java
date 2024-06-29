@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class PatientRouter {
+public class PatientRouting {
 
     @Value("${patient-uri}")
     private String patientUri;
