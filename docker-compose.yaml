@@ -1,6 +1,7 @@
 services:
   mysqldb:
     image: mysql
+    container_name: medilabo-mysql
     ports:
       - 3306:3306
     volumes:
@@ -19,14 +20,28 @@ services:
 
   mongodb:
     image: mongo
+    container_name: medilabo-mongo
     restart: on-failure
     ports:
       - 27017:27017
     networks:
       - medilabo-network
 
+  gateway-service:
+    build: ./ms-gateway
+    container_name: medilabo-gateway
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - medilabo-network
+    depends_on:
+      - mysqldb
+      - mongodb
+
   patient-service:
     build: ./ms-patient
+    container_name: medilabo-patient
     restart: always
     ports:
       - 8082:8082
@@ -40,16 +55,25 @@ services:
     depends_on:
       mysqldb:
         condition: service_healthy
+      gateway-service:
+        condition: service_started
 
   note-service:
     build: ./ms-note
+    container_name: medilabo-note
     restart: always
     ports:
       - 8083:8083
     networks:
       - medilabo-network
+    environment:
+      MONGODB_HOST: mongodb
+      MONGODB_PORT: 27017
     depends_on:
-      - mongodb
+      mongodb:
+        condition: service_started
+      gateway-service:
+        condition: service_started
 
     volumes:
       - .m2:/root/.m2

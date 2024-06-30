@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @RestController
 @Slf4j
-@RequestMapping("notes")
+@RequestMapping("note")
 @RequiredArgsConstructor
 public class NoteController {
 
