@@ -12,14 +12,10 @@ public class NoteRouting {
     @Value("${note-uri}")
     private String noteUri;
 
-
     @Bean
     public RouteLocator noteRouter(RouteLocatorBuilder builder) {
-        return builder
-                .routes()
-                .route(r -> r.path("/note").filters(f -> f.rewritePath("/.*", "/note")).uri(noteUri))
-                .route(r -> r.path("/note/{id}").filters(f -> f.rewritePath("/note/(?<id>.*)", "/note/${id}")).uri(noteUri))
+        return builder.routes().route(r -> r.path("/note").filters(f -> f.rewritePath("/.*", "/note")).uri(noteUri))
+                .route(r -> r.path("/note/{id}").filters(f -> f.rewritePath("/note/(?<id>.*)", "${id}")).uri(noteUri))
                 .build();
     }
 }
-
