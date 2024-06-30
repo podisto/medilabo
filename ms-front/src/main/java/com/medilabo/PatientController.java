@@ -16,12 +16,18 @@ public class PatientController {
 
     private final PatientService patientService;
 
-    @GetMapping({"/", "/index", "/patients"})
+    @GetMapping({"/", "/index", "/patient"})
     public String showPatientList(Model model) {
         log.info("display list patients");
         List<EntityModelPatient> patients = patientService.getListPatients();
         log.info("{} patients retrieved", patients.size());
         model.addAttribute("patients", patients);
         return "index";
+    }
+
+    @GetMapping("/patient/dossier")
+    public String dossierPatient(Model model) {
+        log.info("display dossier patient");
+        return "dossier_patient";
     }
 }

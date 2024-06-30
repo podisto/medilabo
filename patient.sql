@@ -10,6 +10,8 @@ create table if not exists patient(
 ) engine=InnoDB;
 
 
+TRUNCATE TABLE patient;
+
 INSERT INTO patient (last_name, first_name, birth_date, gender, address, phone_number) VALUES ('TestBorderline', 'Test', '19450624', 'M', '2 High St', '200-333-4444');
 INSERT INTO patient (last_name, first_name, birth_date, gender, address, phone_number)
 VALUES ('TestNone', 'Test', '19661231', 'F', '1 Brookside St', '100-222-3333');
