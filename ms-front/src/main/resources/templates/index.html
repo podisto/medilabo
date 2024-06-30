@@ -26,8 +26,8 @@
                 <td th:text="${patient.address}"></td>
                 <td th:text="${patient.phoneNumber}"></td>
                 <td>
-                    <a href="#" class="btn btn-success">Voir dossier</a>
-                    <a href="#" class="btn btn-secondary">Editer</a>
+                    <a th:href="@{/patient/{id}/dossier (id=${patient.id})}" class="btn btn-success">Voir dossier</a>
+                    <a th:href="@{/patient/{id}/edit (id=${patient.id})}" class="btn btn-secondary">Editer</a>
                 </td>
             </tr>
             </tbody>

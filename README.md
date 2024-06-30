@@ -1,3 +1,7 @@
-Documentation 
+# Demarrage de l'application medilabo
 
-http://localhost:8081/swagger-ui/index.html
+Pour lancer l'application il vous faudra docker installe sur votre machine.
+
+`docker-compose up`
+
+` docker-compose up --force-recreate --build -d`

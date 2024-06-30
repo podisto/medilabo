@@ -16,4 +16,5 @@ public class MsFrontApplication {
     RestTemplate restTemplate() {
         return new RestTemplate();
     }
+
 }

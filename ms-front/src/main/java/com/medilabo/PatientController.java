@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -25,9 +26,15 @@ public class PatientController {
         return "index";
     }
 
-    @GetMapping("/patient/dossier")
-    public String dossierPatient(Model model) {
-        log.info("display dossier patient");
+    @GetMapping("/patient/{id}/dossier")
+    public String dossierPatient(@PathVariable("id") Long id, Model model) {
+        log.info("display dossier for patient ID {}", id);
         return "dossier_patient";
+    }
+
+    @GetMapping("/patient/{id}/edit")
+    public String showEditForm(@PathVariable("id") Long id, Model model) {
+        log.info("display edit form for patient ID {}", id);
+        return "edit_patient";
     }
 }
