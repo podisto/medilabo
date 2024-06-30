@@ -29,6 +29,8 @@ public class PatientController {
     @GetMapping("/patient/{id}/dossier")
     public String dossierPatient(@PathVariable("id") Long id, Model model) {
         log.info("display dossier for patient ID {}", id);
+        EntityModelPatient patient = patientService.findById(id);
+        model.addAttribute("patient", patient);
         return "dossier_patient";
     }
 

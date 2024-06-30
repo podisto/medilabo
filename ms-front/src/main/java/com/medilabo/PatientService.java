@@ -9,7 +9,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,5 +22,10 @@ public class PatientService {
         log.info("attempt to fetch list of patients");
         PagedModelEntityModelPatient pagedModelPatient = restTemplate.getForObject(properties.getListPatientUri(), PagedModelEntityModelPatient.class);
         return (pagedModelPatient == null || pagedModelPatient.getEmbedded() == null) ? new ArrayList<>() : pagedModelPatient.getEmbedded().getPatient();
+    }
+
+    public EntityModelPatient findById(Long id) {
+        String uri = String.format(properties.getDossierPatientUri(), id);
+        return restTemplate.getForObject(uri, EntityModelPatient.class);
     }
 }

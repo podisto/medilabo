@@ -9,4 +9,7 @@ import org.springframework.stereotype.Component;
 public class PatientProperties {
     @Value("${list-patient-uri}")
     private String listPatientUri;
+
+    @Value("${dossier-patient-uri}")
+    private String dossierPatientUri;
 }

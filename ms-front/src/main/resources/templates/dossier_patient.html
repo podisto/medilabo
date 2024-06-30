@@ -2,7 +2,7 @@
      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{_layout}" layout:fragment="content">
 
     <main class="container">
-        <h1>Dossier Patient NOM PRENOM</h1><br>
+        <h1>Dossier Patient <span th:text="${patient.firstName}"></span> <span th:text="${patient.lastName}"></span></h1><br>
 
     </main>
 </div>
