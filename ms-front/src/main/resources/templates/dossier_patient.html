@@ -1,8 +1,53 @@
 <div xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6" xmlns:th="http://www.thymeleaf.org"
      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{_layout}" layout:fragment="content">
 
-    <main class="container">
-        <h1>Dossier Patient <span th:text="${patient.firstName}"></span> <span th:text="${patient.lastName}"></span></h1><br>
-
+    <main class="container">     
+        <div class="row">        
+            <div class="col-sm-11 col-12">
+                <h1>Dossier de <span th:text="${patient.firstName}"></span> <span th:text="${patient.lastName}"></span></h1>    
+            </div>                     
+            <div class="col-sm-1 col-12">
+                <a th:href="@{/patient/{id}/edit (id=${patient.id})}" class="btn btn-secondary">Editer</a>
+            </div>
+        </div>
+        <br>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Prénom</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Date de naissance</th>
+                    <th scope="col">Genre</th>
+                    <th scope="col">Adresse</th>
+                    <th scope="col">Numéro de téléphone</th>                
+                    <th scope="col">Risques</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td th:text="${patient.firstName}"></td>
+                    <td th:text="${patient.lastName}"></td>
+                    <td th:text="${patient.birthDate}"></td>
+                    <td th:text="${patient.gender}"></td>
+                    <td th:text="${patient.address}"></td>
+                    <td th:text="${patient.phoneNumber}"></td>
+                    <td>Risques</td>
+                </tr>
+            </tbody>      
+        </table>        
+        <span th:if="${#lists.size(patient.notes) == 0}"><a th:href="@{/patient/{id}/{lastName}/first_note (id=${patient.id}, lastName=${patient.lastName})}" class="btn btn-secondary">Nouvelle note</a></span>        
+        <span th:if="${#lists.size(patient.notes) != 0}"><a th:href="@{/patient/{id}/{lastName}/new_note (id=${patient.id}, lastName=${patient.lastName})}" class="btn btn-secondary">Nouvelle note</a></span>
+        <table class="table table-striped">     
+            <thead>
+                <tr>
+                    <th scope="col">Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="note : ${patient.notes}">
+                    <td th:text="${note}"></td>                    
+                </tr>
+            </tbody>         
+        </table>   
     </main>
 </div>

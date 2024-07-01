@@ -1,0 +1,63 @@
+<div xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6" xmlns:th="http://www.thymeleaf.org"
+     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{_layout}" layout:fragment="content">
+
+    <main class="container">
+        <h1>CREER PATIENT</h1><br>        
+        <div class="card">
+         <form th:action="@{/patient/create}" th:object="${patient}" method="post" enctype="multipart/form-data" style="margin: 10px 50px 10px;">
+        
+           <div class="p-3">
+             <div class="form-group row">
+               <label class="col-2 col-form-label" for="lastName">Last Name</label>
+               <div class="col-10">
+                 <input type="text" th:field="*{lastName}" required minlength="2" maxlength="256" class="form-control"
+                   id="lastName" />
+               </div>
+             </div>
+             <br>
+             <div class="form-group row">
+               <label class="col-2 col-form-label" for="firstName">First Name</label>                
+               <div class="col-10">
+                 <input type="text" th:field="*{firstName}" required minlength="2" maxlength="256" class="form-control"
+                   id="firstName" />
+               </div>
+             </div>            
+             <br>
+             <div class="form-group row">
+               <label class="col-2 col-form-label" for="birthDate">Birthdate</label>                
+               <div class="col-10">
+                 <input type="date" step="1" th:field="*{birthDate}" required
+                   class="form-control" id="birthDate" />
+               </div>
+             </div>            
+             <br>
+             <div class="form-group row">
+               <label class="col-2 form-check-label" for="gender">Gender</label>                
+               <div class="col-10">
+                 <input type="text" th:field="*{gender}" required pattern="M|F"/>
+               </div>
+             </div>               
+             <br>
+             <div class="form-group row">
+               <label class="col-2 form-check-label" for="address">Address</label>                
+               <div class="col-10">
+                 <input type="text" th:field="*{address}" required/>
+               </div>
+             </div>            
+             <br>
+             <div class="form-group row">
+               <label class="col-2 form-check-label" for="phoneNumber">Phone Number</label>                
+               <div class="col-10">
+                 <input type="text" th:field="*{phoneNumber}" required/>
+               </div>
+             </div>            
+             <br>
+             <div class="d-flex flex-row-reverse">
+               <input type="submit" value="Create" class="btn btn-primary" />
+             </div>
+           </div>
+         </form>
+        </div>
+
+    </main>
+</div>
