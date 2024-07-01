@@ -13,13 +13,9 @@ public class AuthRouting {
     private String authUri;
 
     @Bean
-    public RouteLocator authRouterLocator(RouteLocatorBuilder builder) {
-        return builder
-                .routes()
-                .route(r -> r.path("/auth").uri(authUri))
-                .route(r -> r.path("/auth/validate").uri(authUri))
-                .build();
+    public RouteLocator authRouterLocator(RouteLocatorBuilder builder, GatewayAuthFilter gatewayAuthFilter) {
+        return builder.routes().route(r -> r.path("/auth").filters(f -> f.filter(gatewayAuthFilter)).uri(authUri))
+                .route(r -> r.path("/auth/validate").filters(f -> f.filter(gatewayAuthFilter)).uri(authUri)).build();
     }
-
 
 }

@@ -18,4 +18,5 @@ L'application est constituee des microservices (ms) suivants:
 - le ms front (UI) 8081
 - le ms patient 8082
 - le ms note 8083
+- le ms evaluation 8084
 - le ms authentication 8085
