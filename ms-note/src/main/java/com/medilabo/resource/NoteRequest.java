@@ -9,5 +9,5 @@ import java.util.List;
 public class NoteRequest {
     private String patId;
     private String patient;
-    private List<String> notes = new ArrayList<>();
+    private List<String> notes;
 }
