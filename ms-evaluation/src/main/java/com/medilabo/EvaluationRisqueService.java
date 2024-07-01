@@ -1,6 +1,7 @@
 package com.medilabo;
 
 import com.medilabo.model.EntityModelPatient;
+import com.medilabo.model.PagedModelEntityModelPatient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,16 +30,29 @@ public class EvaluationRisqueService {
     private final RestTemplate restTemplate;
     @Value("${patient-detail-uri}")
     private String patientUri;
+    @Value("${list-patient-uri}")
+    private String listPatientUri;
     @Value("${note-detail-uri}")
     private String noteUri;
 
     public EvaluationRisqueResponse getEvaluationRisqueForPatient(String patId) {
         EntityModelPatient patient = restTemplate.getForObject(String.format(patientUri, Long.valueOf(patId)), EntityModelPatient.class);
         if (patient == null) {
+            log.info("no patient with ID " + patId + " found");
             throw new IllegalArgumentException("Patient with ID " + patId + " not found");
         }
         Note note = restTemplate.getForObject(String.format(noteUri, patient.getId()), Note.class);
         return evaluate(patient, note);
+    }
+
+    public List<EvaluationRisqueResponse> getEvaluationRisqueForAllPatients() {
+        PagedModelEntityModelPatient pagedModel = restTemplate.getForObject(listPatientUri, PagedModelEntityModelPatient.class);
+        List<EntityModelPatient> patients = (pagedModel == null || pagedModel.getEmbedded() == null) ? new ArrayList<>() : pagedModel.getEmbedded().getPatient();
+        if (patients.isEmpty()) {
+            log.info("no patients found");
+            throw new IllegalArgumentException("no patients found");
+        }
+        return patients.stream().map(patient -> getEvaluationRisqueForPatient(String.valueOf(patient.getId()))).toList();
     }
 
     private EvaluationRisqueResponse evaluate(EntityModelPatient patient, Note note) {
@@ -103,7 +117,4 @@ public class EvaluationRisqueService {
         return occurrences.size();
     }
 
-    public List<EvaluationRisqueResponse> getEvaluationRisqueForAllPatients() {
-        return null;
-    }
 }

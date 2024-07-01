@@ -2,6 +2,7 @@ package com.medilabo;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,14 +22,22 @@ public class EvaluationRisqueController {
     @GetMapping("/{patId}")
     public ResponseEntity<EvaluationRisqueResponse> getEvaluationForPatient(@PathVariable("patId") String patId) {
         log.info("get evaluation risque for patient ID {}", patId);
-        EvaluationRisqueResponse evaluationRisque = evaluationRisqueService.getEvaluationRisqueForPatient(patId);
-        return ResponseEntity.ok(evaluationRisque);
+        try {
+            EvaluationRisqueResponse evaluationRisque = evaluationRisqueService.getEvaluationRisqueForPatient(patId);
+            return ResponseEntity.ok(evaluationRisque);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     @GetMapping
     public ResponseEntity<List<EvaluationRisqueResponse>> getEvaluationForAllPatients() {
         log.info("get evaluation risque for all patients");
-        evaluationRisqueService.getEvaluationRisqueForAllPatients();
-        return null;
+        try {
+            List<EvaluationRisqueResponse> listEvaluation = evaluationRisqueService.getEvaluationRisqueForAllPatients();
+            return ResponseEntity.ok(listEvaluation);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 }
