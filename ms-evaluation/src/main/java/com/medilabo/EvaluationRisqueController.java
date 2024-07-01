@@ -19,8 +19,8 @@ public class EvaluationRisqueController {
 
     private final EvaluationRisqueService evaluationRisqueService;
 
-    @GetMapping("/{patId}")
-    public ResponseEntity<EvaluationRisqueResponse> getEvaluationForPatient(@PathVariable("patId") String patId) {
+    @GetMapping("/{id}")
+    public ResponseEntity<EvaluationRisqueResponse> getEvaluationForPatient(@PathVariable("id") String patId) {
         log.info("get evaluation risque for patient ID {}", patId);
         try {
             EvaluationRisqueResponse evaluationRisque = evaluationRisqueService.getEvaluationRisqueForPatient(patId);

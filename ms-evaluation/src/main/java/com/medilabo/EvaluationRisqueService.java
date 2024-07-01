@@ -42,6 +42,7 @@ public class EvaluationRisqueService {
             throw new IllegalArgumentException("Patient with ID " + patId + " not found");
         }
         Note note = restTemplate.getForObject(String.format(noteUri, patient.getId()), Note.class);
+        log.info("note for patient {}", note);
         return evaluate(patient, note);
     }
 
@@ -52,6 +53,7 @@ public class EvaluationRisqueService {
             log.info("no patients found");
             throw new IllegalArgumentException("no patients found");
         }
+        log.info("{} patients retrieved", patients.size());
         return patients.stream().map(patient -> getEvaluationRisqueForPatient(String.valueOf(patient.getId()))).toList();
     }
 
