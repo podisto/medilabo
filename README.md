@@ -8,7 +8,7 @@ Pour lancer l'application il vous faudra docker installe sur votre machine.
 
 - Si vous apportez des modifications sur le code, pour redeployer vos changements lancer la commande
 
-` docker-compose up --force-recreate --build -d`
+`docker-compose up --force-recreate --build -d`
 
 #### 2. Les composantes
 
