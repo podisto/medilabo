@@ -1,0 +1,34 @@
+package com.medilabo;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/evaluation")
+@RequiredArgsConstructor
+@Slf4j
+public class EvaluationRisqueController {
+
+    private final EvaluationRisqueService evaluationRisqueService;
+
+    @GetMapping("/{patId}")
+    public ResponseEntity<EvaluationRisqueResponse> getEvaluationForPatient(@PathVariable("patId") String patId) {
+        log.info("get evaluation risque for patient ID {}", patId);
+        EvaluationRisqueResponse evaluationRisque = evaluationRisqueService.getEvaluationRisqueForPatient(patId);
+        return ResponseEntity.ok(evaluationRisque);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<EvaluationRisqueResponse>> getEvaluationForAllPatients() {
+        log.info("get evaluation risque for all patients");
+        evaluationRisqueService.getEvaluationRisqueForAllPatients();
+        return null;
+    }
+}
