@@ -12,7 +12,6 @@ public class AuthRouting {
     @Value("${auth-uri}")
     private String authUri;
 
-
     @Bean
     public RouteLocator authRouterLocator(RouteLocatorBuilder builder) {
         return builder
@@ -21,4 +20,6 @@ public class AuthRouting {
                 .route(r -> r.path("/auth/validate").uri(authUri))
                 .build();
     }
+
+
 }
