@@ -50,4 +50,17 @@ public class NoteController {
         Note created = noteRepo.save(note);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
+
+    @PostMapping
+    public ResponseEntity<Note> addNoteForPatient(@RequestParam("patId") String patId, @RequestBody String note) {
+        log.info("add notes to patient {}", patId);
+        Optional<Note> optional = noteRepo.findById(patId);
+        if (optional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        Note foundNote = optional.get();
+        foundNote.getNotes().add(note);
+        Note updated = noteRepo.save(foundNote);
+        return ResponseEntity.status(HttpStatus.CREATED).body(updated);
+    }
 }

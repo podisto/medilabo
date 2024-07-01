@@ -74,6 +74,30 @@ services:
         condition: service_started
       gateway-service:
         condition: service_started
+        
+  evaluation-service:
+    build: ./ms-evaluation
+    container_name: medilabo-evaluation
+    restart: always
+    ports:
+      - 8084:8084
+    networks:
+      - medilabo-network
+    depends_on:
+      gateway-service:
+        condition: service_started
+        
+  auth-service:
+    build: ./ms-authentication
+    container_name: medilabo-auth
+    restart: always
+    ports:
+      - 8085:8085
+    networks:
+      - medilabo-network
+    depends_on:
+      gateway-service:
+        condition: service_started
 
     volumes:
       - .m2:/root/.m2

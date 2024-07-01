@@ -6,15 +6,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
-public class MsGatewayApplication {
+public class MsEvaluationApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(MsGatewayApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(MsEvaluationApplication.class, args);
+	}
 
-    @Bean
-    RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
+	@Bean
+	RestTemplate restTemplate() {
+		return new RestTemplate();
+	}
 
 }
