@@ -1,12 +1,12 @@
 package com.medilabo.controller;
 
+import com.medilabo.config.GatewayProperties;
 import com.medilabo.dto.LoginForm;
 import com.medilabo.dto.AccessToken;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,12 +21,11 @@ import org.springframework.web.client.RestTemplate;
 public class LoginController {
 
     private final RestTemplate restTemplate;
+    private final GatewayProperties properties;
 
-    @Value("${auth-uri}")
-    private String authUri;
-
-    public LoginController(@Qualifier("restTemplate") RestTemplate restTemplate) {
+    public LoginController(@Qualifier("restTemplate") RestTemplate restTemplate, GatewayProperties properties) {
         this.restTemplate = restTemplate;
+        this.properties = properties;
     }
 
     @GetMapping("/login")
@@ -39,7 +38,7 @@ public class LoginController {
     @PostMapping("/login")
     public String doLogin(@ModelAttribute LoginForm loginForm, Model model, HttpServletRequest request) {
         log.info("process login for user {}", loginForm.getUsername());
-        AccessToken accessToken = restTemplate.postForObject(authUri, loginForm, AccessToken.class);
+        AccessToken accessToken = restTemplate.postForObject(properties.getAuthUri(), loginForm, AccessToken.class);
         log.info("Access Token retrieved= {}", accessToken);
         HttpSession session = request.getSession();
         assert accessToken != null;
