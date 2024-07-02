@@ -22,3 +22,7 @@ L'application est constituee des microservices (ms) suivants:
 - le ms authentication 8085
 - le cluster mongo sur le port 27017
 - le cluster MySQL sur le port 3308. Les identifiants de connexion a la BD patient sont: host=localhost, user=user1 et password=passer123
+
+Pour se connecter depuis le ms-front vous pouvez utiliser l'un des identifiants suivants:
+- username=omar et password=passer@123
+- username=robin et password=passer
