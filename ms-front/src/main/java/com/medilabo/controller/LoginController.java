@@ -17,7 +17,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Controller
 @Slf4j
-@RequestMapping("login")
+@RequestMapping
 public class LoginController {
 
     private final RestTemplate restTemplate;
@@ -29,21 +29,27 @@ public class LoginController {
         this.restTemplate = restTemplate;
     }
 
-    @GetMapping
+    @GetMapping("/login")
     public String login(Model model) {
         log.info("display login page");
         model.addAttribute("loginForm", new LoginForm());
         return "login";
     }
 
-    @PostMapping
+    @PostMapping("/login")
     public String doLogin(@ModelAttribute LoginForm loginForm, Model model, HttpServletRequest request) {
         log.info("process login for user {}", loginForm.getUsername());
         AccessToken accessToken = restTemplate.postForObject(authUri, loginForm, AccessToken.class);
-        log.info("### TOKEN {}", accessToken);
+        log.info("Access Token retrieved= {}", accessToken);
         HttpSession session = request.getSession();
         assert accessToken != null;
         session.setAttribute("token", accessToken.getToken());
         return "redirect:/";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        request.getSession().invalidate();
+        return "redirect:/login";
     }
 }

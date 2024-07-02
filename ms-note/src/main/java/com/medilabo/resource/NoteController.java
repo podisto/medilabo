@@ -4,7 +4,6 @@ import com.medilabo.persistence.Note;
 import com.medilabo.persistence.NoteRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,27 +34,19 @@ public class NoteController {
     }
 
     @PostMapping
-    public ResponseEntity<Note> addNote(@RequestBody NoteRequest noteRequest) {
-        log.info("attempt to add note for Patient ID {}, name {}", noteRequest.getPatId(), noteRequest.getPatient());
-        Note note = Note.builder()
-                .patId(noteRequest.getPatId())
-                .patient(noteRequest.getPatient())
-                .notes(noteRequest.getNotes())
-                .build();
-        Note created = noteRepo.save(note);
-        return ResponseEntity.status(HttpStatus.CREATED).body(created);
-    }
-
-    @PostMapping("/patient")
-    public ResponseEntity<Note> addNoteForPatient(@RequestParam("patId") String patId, @RequestBody String note) {
-        log.info("add notes to patient {}", patId);
-        Optional<Note> optional = noteRepo.findById(patId);
+    public ResponseEntity<Note> addNoteForPatient(@RequestBody Note newNote) {
+        log.info("add notes to patient {}", newNote.getPatId());
+        Optional<Note> optional = noteRepo.findById(newNote.getPatId());
         if (optional.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            log.info("will add the first note for patient {}", newNote.getPatient());
+            Note created = noteRepo.save(newNote);
+            log.info("first note created");
+            return ResponseEntity.ok(created);
         }
-        Note foundNote = optional.get();
-        foundNote.getNotes().add(note);
-        Note updated = noteRepo.save(foundNote);
-        return ResponseEntity.status(HttpStatus.CREATED).body(updated);
+        log.info("will add new note to existing one");
+        Note found = optional.get();
+        found.getNotes().add(newNote.getNotes().get(0));
+        Note updated = noteRepo.save(found);
+        return ResponseEntity.ok(updated);
     }
 }

@@ -46,10 +46,12 @@ public class GatewayAuthFilter implements GatewayFilter {
 
             try {
                 boolean isValid = Boolean.TRUE.equals(restTemplate.getForObject(String.format(authValidationUri, authHeader), Boolean.class));
-                log.info("TOKEN VALID ?: {}", isValid);
+                log.info("IS TOKEN STILL VALID ? {}", isValid);
             } catch (Exception e) {
-                log.info("ERROR: {}", e.getMessage());
-                throw new RuntimeException("ERROR: {} " + e.getMessage());
+                log.info("INVALID TOKEN: {}", e.getMessage());
+                ServerHttpResponse response = exchange.getResponse();
+                response.setStatusCode(HttpStatus.FORBIDDEN);
+                return response.writeWith(Mono.just(response.bufferFactory().wrap("INVALID TOKEN".getBytes())));
             }
         }
         return chain.filter(exchange);

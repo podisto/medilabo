@@ -36,11 +36,10 @@
             </tr>
             </tbody>
         </table>
-<!--        <span th:if="${#lists.size(patient.notes) == 0}"><a th:href="@{/patient/{id}/{lastName}/first_note (id=${patient.id}, lastName=${patient.lastName})}" class="btn btn-primary" style="margin-top: 20px">Nouvelle note</a></span>-->
-<!--        <span th:if="${#lists.size(patient.notes) != 0}"><a th:href="@{/patient/{id}/{lastName}/new_note (id=${patient.id}, lastName=${patient.lastName})}" class="btn btn-primary" style="margin-top: 20px">Nouvelle note</a></span>-->
 
-        <span th:if="${#lists.size(patient.notes) != 0}"><a th:href="@{/note/{patId} (patId=${patient.id})}" class="btn btn-primary" style="margin-top: 20px">Nouvelle note</a></span>
-        <div th:if="${patient.notes == null || patient.notes.isEmpty() }" class="alert alert-primary" role="alert" style="margin-top: 30px">
+        <a th:href="@{/note/{patId}/{patient} (patId=${patient.id}, patient=${patient.lastName})}" class="btn btn-primary" style="margin-top: 20px">Nouvelle note</a>
+
+        <div th:if="${patient.notes == null || patient.notes.isEmpty() }" class="alert alert-primary" role="alert" style="margin-top: 20px">
             Pas encore de note !
         </div>
         <br>
