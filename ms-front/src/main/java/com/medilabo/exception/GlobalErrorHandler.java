@@ -1,6 +1,5 @@
 package com.medilabo.exception;
 
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -15,9 +14,6 @@ public class GlobalErrorHandler {
     @ExceptionHandler(HttpClientErrorException.class)
     public void handleUnauthorizedException(HttpClientErrorException e, HttpSession session, HttpServletResponse response) throws Exception {
         log.info("ERROR: {} => redirect to login", e.getMessage());
-        /*Cookie deleteServletCookie = new Cookie("token", null);
-        deleteServletCookie.setMaxAge(0);
-        request.addCookie(deleteServletCookie);*/
         session.invalidate();
         response.sendRedirect("/login");
     }
