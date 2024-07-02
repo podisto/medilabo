@@ -25,4 +25,7 @@ public class GatewayUriProperties {
 
     @Value("${create-note-uri}")
     private String createNoteUri;
+
+    @Value("${auth-uri}")
+    private String authUri;
 }
