@@ -1,5 +1,10 @@
-package com.medilabo;
+package com.medilabo.services;
 
+import com.medilabo.config.GatewayProperties;
+import com.medilabo.exception.MedilaboException;
+import com.medilabo.dto.Note;
+import com.medilabo.dto.EvaluationRisque;
+import com.medilabo.dto.PatientDetails;
 import com.medilabo.model.EntityModelPatient;
 import com.medilabo.model.PagedModelEntityModelPatient;
 import com.medilabo.model.PatientRequestBody;

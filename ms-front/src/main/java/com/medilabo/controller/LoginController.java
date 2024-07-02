@@ -1,5 +1,7 @@
-package com.medilabo;
+package com.medilabo.controller;
 
+import com.medilabo.dto.LoginForm;
+import com.medilabo.dto.AccessToken;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -19,14 +21,12 @@ import org.springframework.web.client.RestTemplate;
 public class LoginController {
 
     private final RestTemplate restTemplate;
-    private final TokenContextHolder tokenContextHolder;
 
     @Value("${auth-uri}")
     private String authUri;
 
-    public LoginController(@Qualifier("restTemplate") RestTemplate restTemplate, TokenContextHolder tokenContextHolder) {
+    public LoginController(@Qualifier("restTemplate") RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
-        this.tokenContextHolder = tokenContextHolder;
     }
 
     @GetMapping
@@ -41,12 +41,6 @@ public class LoginController {
         log.info("process login for user {}", loginForm.getUsername());
         AccessToken accessToken = restTemplate.postForObject(authUri, loginForm, AccessToken.class);
         log.info("### TOKEN {}", accessToken);
-//        tokenContextHolder.setToken(token.getToken());
-//        Cookie cookie = new Cookie("token", token.getToken());
-//        cookie.setMaxAge(86400);
-//        cookie.setSecure(true);
-//        cookie.setHttpOnly(true);
-//        response.addCookie(cookie);
         HttpSession session = request.getSession();
         assert accessToken != null;
         session.setAttribute("token", accessToken.getToken());

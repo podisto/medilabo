@@ -1,4 +1,4 @@
-package com.medilabo;
+package com.medilabo.config;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +20,6 @@ public class RestTemplateConfig {
     @RequestScope
     @Bean("authRestTemplate")
     RestTemplate authRestTemplate(HttpSession session) {
-//        log.info("Bearer token to send to downstream services: {}", contextHolder.getToken());
         String token = (String) session.getAttribute("token");
         log.info("Bearer token to send to downstream services: {}", token);
         return new RestTemplateBuilder(rt -> rt.getInterceptors().add((request, body, execution) -> {

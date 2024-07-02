@@ -1,4 +1,4 @@
-package com.medilabo;
+package com.medilabo.config;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;

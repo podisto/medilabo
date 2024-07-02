@@ -1,5 +1,7 @@
-package com.medilabo;
+package com.medilabo.controller;
 
+import com.medilabo.dto.PatientDetails;
+import com.medilabo.services.PatientService;
 import com.medilabo.model.EntityModelPatient;
 import com.medilabo.model.PatientRequestBody;
 import jakarta.validation.Valid;

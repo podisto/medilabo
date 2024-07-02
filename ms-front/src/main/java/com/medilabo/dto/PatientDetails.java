@@ -1,4 +1,4 @@
-package com.medilabo;
+package com.medilabo.dto;
 
 import lombok.Builder;
 import lombok.Getter;
