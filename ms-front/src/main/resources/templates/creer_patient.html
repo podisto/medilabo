@@ -2,11 +2,9 @@
      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{_layout}" layout:fragment="content">
 
     <main class="container">
-        <h1>EDIT PATIENT</h1><br>
+        <h1>CREER PATIENT</h1><br>
         <div class="card">
-            <form th:action="@{/patient/{id}/update(id=${patient.id})}" method="post" enctype="multipart/form-data" th:object="${patient}" style="margin: 10px 50px 10px;">
-
-                <input type="hidden" th:field="*{id}" />
+            <form th:action="@{/patient/create}" th:object="${patient}" method="post" enctype="multipart/form-data" style="margin: 10px 50px 10px;">
 
                 <div class="p-3">
                     <div class="form-group row">
@@ -55,10 +53,11 @@
                     </div>
                     <br>
                     <div class="d-flex flex-row-reverse">
-                        <input type="submit" value="Save" class="btn btn-success" />
+                        <input type="submit" value="Create" class="btn btn-success" />
                     </div>
                 </div>
             </form>
         </div>
+
     </main>
 </div>

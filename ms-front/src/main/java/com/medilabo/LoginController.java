@@ -1,7 +1,7 @@
 package com.medilabo;
 
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,16 +37,19 @@ public class LoginController {
     }
 
     @PostMapping
-    public String doLogin(@ModelAttribute LoginForm loginForm, Model model, HttpServletResponse response) {
+    public String doLogin(@ModelAttribute LoginForm loginForm, Model model, HttpServletRequest request) {
         log.info("process login for user {}", loginForm.getUsername());
-        AccessToken token = restTemplate.postForObject(authUri, loginForm, AccessToken.class);
-        log.info("### TOKEN {}", token);
-        tokenContextHolder.setToken(token.getToken());
-        Cookie cookie = new Cookie("token", token.getToken());
-        cookie.setMaxAge(86400);
-        cookie.setSecure(true);
-        cookie.setHttpOnly(true);
-        response.addCookie(cookie);
+        AccessToken accessToken = restTemplate.postForObject(authUri, loginForm, AccessToken.class);
+        log.info("### TOKEN {}", accessToken);
+//        tokenContextHolder.setToken(token.getToken());
+//        Cookie cookie = new Cookie("token", token.getToken());
+//        cookie.setMaxAge(86400);
+//        cookie.setSecure(true);
+//        cookie.setHttpOnly(true);
+//        response.addCookie(cookie);
+        HttpSession session = request.getSession();
+        assert accessToken != null;
+        session.setAttribute("token", accessToken.getToken());
         return "redirect:/";
     }
 }

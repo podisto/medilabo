@@ -2,6 +2,7 @@ package com.medilabo;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -12,11 +13,12 @@ import org.springframework.web.client.HttpClientErrorException;
 public class GlobalErrorHandler {
 
     @ExceptionHandler(HttpClientErrorException.class)
-    public void handleUnauthorizedException(HttpClientErrorException e, HttpServletResponse response) throws Exception {
+    public void handleUnauthorizedException(HttpClientErrorException e, HttpSession session, HttpServletResponse response) throws Exception {
         log.info("ERROR: {} => redirect to login", e.getMessage());
-        Cookie deleteServletCookie = new Cookie("token", null);
+        /*Cookie deleteServletCookie = new Cookie("token", null);
         deleteServletCookie.setMaxAge(0);
-        response.addCookie(deleteServletCookie);
+        request.addCookie(deleteServletCookie);*/
+        session.invalidate();
         response.sendRedirect("/login");
     }
 }

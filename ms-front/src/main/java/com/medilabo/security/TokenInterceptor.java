@@ -22,17 +22,17 @@ public class TokenInterceptor implements HandlerInterceptor {
         }
 
         log.info("executing token interceptor");
-        String tokenCookie = getCookie(request);
-        log.info("## token= {}", tokenCookie);
+        String token = (String) request.getSession().getAttribute("token");
+        log.info("token retrieved from session = {}", token);
 
-        if (!StringUtils.hasText(tokenCookie)) {
+        if (!StringUtils.hasText(token)) {
             response.sendRedirect("/login");
             return false;
         }
         return true;
     }
 
-    private String getCookie(HttpServletRequest request) {
+/*    private String getCookie(HttpServletRequest request) {
         if (request == null || request.getCookies() == null) {
             return null;
         }
@@ -42,5 +42,5 @@ public class TokenInterceptor implements HandlerInterceptor {
                 .findFirst()
                 .map(Cookie::getValue)
                 .orElse(null);
-    }
+    }*/
 }
