@@ -31,12 +31,7 @@ public class NoteController {
     public ResponseEntity<Note> noteForPatient(@PathVariable("id") String patId) {
         log.info("get notes for patient ID {}", patId);
         Optional<Note> optional = noteRepo.findById(patId);
-        if (optional.isEmpty()) {
-            log.info("No notes for patient with ID {}", patId);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-
-        return ResponseEntity.ok(optional.get());
+        return ResponseEntity.ok(optional.orElse(null));
     }
 
     @PostMapping
