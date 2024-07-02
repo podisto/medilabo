@@ -32,7 +32,7 @@ public class AuthResource {
     }
 
     @GetMapping("/validate")
-    public ResponseEntity<Boolean> validateToken(@RequestParam("token") String token) {
+        public ResponseEntity<Boolean> validateToken(@RequestParam("token") String token) {
         log.info("attempting to validate the token");
         try {
             boolean result = authService.validateToken(token);

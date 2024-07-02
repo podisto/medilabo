@@ -51,7 +51,7 @@ public class NoteController {
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
-    @PostMapping
+    @PostMapping("/patient")
     public ResponseEntity<Note> addNoteForPatient(@RequestParam("patId") String patId, @RequestBody String note) {
         log.info("add notes to patient {}", patId);
         Optional<Note> optional = noteRepo.findById(patId);
