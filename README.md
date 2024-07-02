@@ -32,3 +32,5 @@ Pour se connecter depuis le ms-front vous pouvez utiliser l'un des identifiants 
 Vous pouvez utiliser l'outil [Mongo Compass](https://www.mongodb.com/products/tools/compass) pour visualiser les donnees de la connexion, renseigner host=localhost et port=27017
 
 Pour la BD MySQL vous pouvez utiliser l'outil [DB Eaver](https://dbeaver.io/) ou equivalent
+
+Pour manager les containers vous pouvez y aller soit via le terminal ou plus facilement avec un outil graphique tel que [Docker Desktop](https://www.docker.com/products/docker-desktop/)
