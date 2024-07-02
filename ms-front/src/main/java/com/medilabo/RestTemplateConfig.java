@@ -17,7 +17,6 @@ public class RestTemplateConfig {
     @RequestScope
     @Bean("authRestTemplate")
     RestTemplate authRestTemplate(TokenContextHolder contextHolder) {
-        System.out.println("### CONTEXT HOLDER " +contextHolder.getToken());
         return new RestTemplateBuilder(rt -> rt.getInterceptors().add((request, body, execution) -> {
             request.getHeaders().add("Authorization", "Bearer " + contextHolder.getToken());
             return execution.execute(request, body);
