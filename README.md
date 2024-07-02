@@ -26,3 +26,9 @@ L'application est constituee des microservices (ms) suivants:
 Pour se connecter depuis le ms-front vous pouvez utiliser l'un des identifiants suivants:
 - username=omar et password=passer@123
 - username=robin et password=passer
+
+#### 3. Outils
+
+Vous pouvez utiliser l'outil [Mongo Compass](https://www.mongodb.com/products/tools/compass) pour visualiser les donnees de la connexion, renseigner host=localhost et port=27017
+
+Pour la BD MySQL vous pouvez utiliser l'outil [DB Eaver](https://dbeaver.io/) ou equivalent
